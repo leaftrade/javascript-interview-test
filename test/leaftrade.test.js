@@ -1,5 +1,6 @@
 const expect = require('chai').expect;
 const LeafServices = require('../src/js/leafServices.js');
+const moment = require('moment');
 
 var sut = new LeafServices();
 
@@ -51,6 +52,7 @@ describe('Leaftrade Tests', () => {
 
             // Code here
             var distance = sut.haversineFunction(place1, place2);
+
             expect(distance).to.equal('36.91');
         });
     });
@@ -60,6 +62,7 @@ describe('Leaftrade Tests', () => {
             let time2 = '2016-06-05T15:00:00';
 
             // Code here
+            var timeDiff = moment(time1).from(moment(time2));
 
             expect(timeDiff).to.equal('3 hours ago');
         });
