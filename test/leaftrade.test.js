@@ -1,11 +1,16 @@
 const expect = require('chai').expect;
+const LeafServices = require('../src/js/leafServices.js');
+const moment = require('moment');
+
+var sut = new LeafServices();
 
 describe('Leaftrade Tests', () => {
     describe('Reverse Array', () => {
         it('should turn the below string into an array and reverse the words', () => {
-            let data = "I want this job.";
+            let data = "I want this job";
 
             // Code here
+            data = sut.splitAndReverse(data);
 
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
         });
@@ -15,6 +20,7 @@ describe('Leaftrade Tests', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
 
             // Code here
+            data = sut.sortStringArray(data);
 
             expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
         });
@@ -25,11 +31,11 @@ describe('Leaftrade Tests', () => {
             let data2 = [2, 4, 5, 7, 8, 9, 10];
 
             // Code here
-
+            data = sut.findArrDiff(data1, data2);
             expect([8, 9, 10]).to.deep.equal(data);
 
             // Code here
-
+            data = sut.findArrDiff(data2, data1);
             expect([1, 3, 6]).to.deep.equal(data);
         });
     });
@@ -45,6 +51,7 @@ describe('Leaftrade Tests', () => {
             };
 
             // Code here
+            var distance = sut.haversineFunction(place1, place2);
 
             expect(distance).to.equal('36.91');
         });
@@ -55,6 +62,7 @@ describe('Leaftrade Tests', () => {
             let time2 = '2016-06-05T15:00:00';
 
             // Code here
+            var timeDiff = moment(time1).from(moment(time2));
 
             expect(timeDiff).to.equal('3 hours ago');
         });
