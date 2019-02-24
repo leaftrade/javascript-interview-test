@@ -1,11 +1,15 @@
 const expect = require('chai').expect;
+const LeafServices = require('../src/js/leafServices.js');
+
+var sut = new LeafServices();
 
 describe('Leaftrade Tests', () => {
     describe('Reverse Array', () => {
         it('should turn the below string into an array and reverse the words', () => {
-            let data = "I want this job.";
+            let data = "I want this job";
 
             // Code here
+            data = sut.splitAndReverse(data);
 
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
         });
