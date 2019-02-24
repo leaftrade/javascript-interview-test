@@ -19,6 +19,7 @@ describe('Leaftrade Tests', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
 
             // Code here
+            data = sut.sortStringArray(data);
 
             expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
         });
@@ -29,11 +30,11 @@ describe('Leaftrade Tests', () => {
             let data2 = [2, 4, 5, 7, 8, 9, 10];
 
             // Code here
-
+            data = sut.findArrDiff(data1, data2);
             expect([8, 9, 10]).to.deep.equal(data);
 
             // Code here
-
+            data = sut.findArrDiff(data2, data1);
             expect([1, 3, 6]).to.deep.equal(data);
         });
     });
