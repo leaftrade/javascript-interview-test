@@ -50,7 +50,7 @@ describe('Leaftrade Tests', () => {
             };
 
             // Code here
-
+            var distance = sut.haversineFunction(place1, place2);
             expect(distance).to.equal('36.91');
         });
     });
