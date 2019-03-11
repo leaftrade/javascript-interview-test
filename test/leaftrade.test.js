@@ -6,9 +6,9 @@ describe('Leaftrade Tests', () => {
             let data = "I want this job.";
             datamod = data.replace(/\./g, '');
             var arr = datamod.split(' ');
-            console.log(arr);
+
             data = arr.reverse();
-            console.log(data);
+
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
         });
     });
@@ -19,7 +19,7 @@ describe('Leaftrade Tests', () => {
             var arr = [];
             for(var i =0; i<dcopy.length; i++)
                 arr.push(Number(dcopy[i]));
-            console.log(arr)
+
             //data = '"' + arr.join(' "," ') + '"';
             data = arr;
             expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
@@ -33,7 +33,7 @@ describe('Leaftrade Tests', () => {
             var arr1 = [];
             var arr2 = [];
 
-            console.log(data1.indexOf(data2[2]));
+
 
             /*indexOf returns -1 if the value to search for never occurs.
             * so this is a janky way of using this builtin but it works pretty well*/
@@ -44,14 +44,6 @@ describe('Leaftrade Tests', () => {
             for(var j = 0; j < data2.length; j++){
                 if(data1.indexOf(data2[j]) === -1) arr2.push(data2[j]);
             }
-
-            console.log(data1);
-            console.log(arr1);
-            console.log('');
-            console.log(data2);
-            console.log(arr2);
-
-
             // Code here
             data = arr2;
 
@@ -123,7 +115,6 @@ describe('Leaftrade Tests', () => {
                 for (var i = 0; i < time1_split.length; i++) {
                     if (i === 0) {
                         dict['years'] = time2_split[i] - time1_split[i];
-
                     }
                     if (i === 1) {
                         dict['months'] = time2_split[i] - time1_split[i];
@@ -131,32 +122,23 @@ describe('Leaftrade Tests', () => {
                     if (i === 2) {
                         dict['days'] = time2_split[i] - time1_split[i];
                     }
-
                     if (i === 3) {
                         var t1 = new Date(time1_split);
                         var t2 = new Date(time2_split);
-
                         dict['hours'] = t2.getHours() - t1.getHours();
                         dict['minutes'] = t2.getMinutes() - t1.getMinutes();
                         dict['seconds'] = t2.getSeconds()-t1.getSeconds();
-
-
-                        //console.log(d.getHours(), d.getMinutes(), d.getSeconds())
                     }
-
                 }
             }
             var timeDiffStr = '';
             for(var key in dict){
                  if(dict[key] !== 0){
-
                      timeDiffStr +=dict[key] + ' ' + key;
                  }
 
              }
-
             var timeDiff = timeDiffStr + ' ' + 'ago';
-
             expect(timeDiff).to.equal('3 hours ago');
         });
     });
