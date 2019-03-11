@@ -1,8 +1,5 @@
-# Leaftrade JavaScript Interview Test
+# JavaScript Challenges
 
-Thanks for applying at Leaftrade!
-
-The tests in this exercise shouldn't take more than a hour or so to complete.
 
 ### Instructions
 
