@@ -96,11 +96,7 @@ describe('Leaftrade Tests', () => {
             var d = R * c;  //in kilometers
 
             var distance_float = Math.round(d* 0.6214 * 100) /100; //in miles
-
-            console.log(distance_float.toString());
-
-            var distance = distance_float.toString()
-
+            var distance = distance_float.toString();
 
             expect(distance).to.equal('36.91');
         });
@@ -111,7 +107,55 @@ describe('Leaftrade Tests', () => {
             let time2 = '2016-06-05T15:00:00';
 
             // Code here
-            /**/
+            //var time1_split = new Date(time1.replace(/-/g, ''));
+            var time1_split = time1.replace(/-/g,',').replace(/T/g, ',').split(',');
+            var time2_split = time2.replace(/-/g,',').replace(/T/g, ',').split(',');
+
+            //console.log(time1_split);
+            //console.log(time2_split);
+            var arr = [];
+            var dict = {};
+            if (time1_split.length !== time2_split.length){
+                console.log('Invalid time input');
+                return null;
+            }
+            else {
+                for (var i = 0; i < time1_split.length; i++) {
+                    if (i === 0) {
+                        dict['years'] = time2_split[i] - time1_split[i];
+
+                    }
+                    if (i === 1) {
+                        dict['months'] = time2_split[i] - time1_split[i];
+                    }
+                    if (i === 2) {
+                        dict['days'] = time2_split[i] - time1_split[i];
+                    }
+
+                    if (i === 3) {
+                        var t1 = new Date(time1_split);
+                        var t2 = new Date(time2_split);
+
+                        dict['hours'] = t2.getHours() - t1.getHours();
+                        dict['minutes'] = t2.getMinutes() - t1.getMinutes();
+                        dict['seconds'] = t2.getSeconds()-t1.getSeconds();
+
+
+                        //console.log(d.getHours(), d.getMinutes(), d.getSeconds())
+                    }
+
+                }
+            }
+            var timeDiffStr = '';
+            for(var key in dict){
+                 if(dict[key] !== 0){
+
+                     timeDiffStr +=dict[key] + ' ' + key;
+                 }
+
+             }
+
+            var timeDiff = timeDiffStr + ' ' + 'ago';
 
             expect(timeDiff).to.equal('3 hours ago');
         });
