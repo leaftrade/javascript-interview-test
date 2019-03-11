@@ -12,6 +12,7 @@ describe('Leaftrade Tests', () => {
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
         });
     });
+
     describe('Order Array', () => {
         it('should sort the below array', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
@@ -25,6 +26,7 @@ describe('Leaftrade Tests', () => {
             expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
         });
     });
+
     describe('Get Diff Array', () => {
         it('should determine array differences', () => {
             let data1 = [1, 2, 3, 4, 5, 6, 7];
@@ -33,11 +35,8 @@ describe('Leaftrade Tests', () => {
             var arr1 = [];
             var arr2 = [];
 
-
-
             /*indexOf returns -1 if the value to search for never occurs.
             * so this is a janky way of using this builtin but it works pretty well*/
-
             for(var i = 0; i < data1.length; i++){
                 if(data2.indexOf(data1[i]) === -1) arr1.push(data1[i]);
             }
@@ -54,6 +53,7 @@ describe('Leaftrade Tests', () => {
             expect([1, 3, 6]).to.deep.equal(data);
         });
     });
+
     describe('Get Distance', () => {
         it('should get the distance between two geo points', () => {
             let place1 = {
@@ -75,6 +75,8 @@ describe('Leaftrade Tests', () => {
             * haversine formula it is.*/
 
             /**https://en.wikipedia.org/wiki/Haversine_formula**/
+
+            //Haversine function start
             var R = 6372; //km of earth radius
             var delta_x = (x2 - x1) * Math.PI / 180;
             var delta_y = (y2 - y1) * Math.PI / 180;
@@ -89,6 +91,7 @@ describe('Leaftrade Tests', () => {
 
             var distance_float = Math.round(d* 0.6214 * 100) /100; //in miles
             var distance = distance_float.toString();
+            //end Haversine
 
             expect(distance).to.equal('36.91');
         });
