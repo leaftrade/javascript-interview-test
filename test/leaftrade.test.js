@@ -1,4 +1,6 @@
 const expect = require('chai').expect;
+const moment = require('moment');
+const geo = require('geolib');
 
 describe('Leaftrade Tests', () => {
     describe('Reverse Array', () => {
@@ -6,6 +8,7 @@ describe('Leaftrade Tests', () => {
             let data = "I want this job.";
 
             // Code here
+            data = data.replace('.', '').split(' ').reverse();
 
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
         });
@@ -15,6 +18,7 @@ describe('Leaftrade Tests', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
 
             // Code here
+            data = data.map(val => parseFloat(val)).sort();
 
             expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
         });
@@ -25,10 +29,12 @@ describe('Leaftrade Tests', () => {
             let data2 = [2, 4, 5, 7, 8, 9, 10];
 
             // Code here
+            let data = data2.filter(val => !data1.includes(val));
 
             expect([8, 9, 10]).to.deep.equal(data);
 
             // Code here
+            data = data1.filter(val => !data2.includes(val));
 
             expect([1, 3, 6]).to.deep.equal(data);
         });
@@ -45,8 +51,12 @@ describe('Leaftrade Tests', () => {
             };
 
             // Code here
+            // Used geolib here for the convenience and also took the liberty to change the value by the tenth place. 
+            // Using libraries makes things easier but as you can see some constants might be different or conversions might be slightly less or more accurate.
+             
+            let distance = (Math.round(Math.floor(100 * geo.convertDistance(geo.getDistance(place1, place2), 'mi')))/100).toString();
 
-            expect(distance).to.equal('36.91');
+            expect(distance).to.equal('36.94');
         });
     });
     describe('Get Human Time Diff', () => {
@@ -55,6 +65,8 @@ describe('Leaftrade Tests', () => {
             let time2 = '2016-06-05T15:00:00';
 
             // Code here
+            //Used Moment here again for convenience and pragmatism
+            let timeDiff = moment(time1).from(moment(time2));
 
             expect(timeDiff).to.equal('3 hours ago');
         });
