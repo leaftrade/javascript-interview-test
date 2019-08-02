@@ -5,6 +5,9 @@
     },
     "dependencies": {
         "chai": "^4.1.2",
-        "mocha": "^5.1.1"
+        "chai-almost": "^1.0.1",
+        "mocha": "^5.1.1",
+        "geopoint": "1.0.1",
+        "moment": "^2.24.0"
     }
 }
