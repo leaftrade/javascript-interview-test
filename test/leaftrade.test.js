@@ -74,7 +74,6 @@ describe('Leaftrade Tests', () => {
             };
 
             chai.use(chaiAlmost(.01))
-            // I can come within 10 meters.
             distance = dist_in_miles(place1, place2);
             expect(distance).to.almost.eql(36.91);
         });
