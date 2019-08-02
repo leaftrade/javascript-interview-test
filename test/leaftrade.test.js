@@ -3,24 +3,32 @@ const expect = require('chai').expect;
 const reverseArray = (data) => {
     // .replace: Removes the period from the end of the sentence.
     // .split: Split the sentence in to an array of words so it can be sorted
-    // .reverse: reverses the order of the array of words 
-    return data.replace('.','').split(' ').reverse()
+    // .reverse: reverses the order of the array of words
+    const reversedArray = data.replace('.','').split(' ').reverse()
+    console.log('reversedArray:', reversedArray)
+    return reversedArray
 }
 
 const orderArray = (data) => {
     // Convert each string in the array to a float
     // Sort the array of floats and return
-    return data.map(i => parseFloat(i)).sort()
+    const orderedArray = data.map(i => parseFloat(i)).sort()
+    console.log('orderedArray:', orderedArray)
+    return orderedArray
 }
 
-const vennDiagram = (arr1, arr2, index) => {
-    // index of 0 returns all elements only found in arr1
-    // index of 1 returns elements shared by arr1 and 2
-    // index of 2 returns elements only found in arr2
-    if (index === 0) return arr1.filter(i => arr2.indexOf(i) === -1)
-    else if (index === 1) return arr1.filter(i => arr2.indexOf(i) >= 0)
-    else if (index === 2) return arr2.filter(i => arr1.indexOf(i) === -1)
+const getDiffArray = (arr1, arr2, index) => {
+    // Similar to a Venn Diagram
+    // (Center) index of 0 returns elements shared by arr1 and 2
+    // (Left) index of 1 returns all elements only found in arr1    
+    // (Right) index of 2 returns elements only found in arr2
+    let output
+    if (index === 0) output = arr1.filter(i => arr2.indexOf(i) >= 0)
+    else if (index === 1) output = arr1.filter(i => arr2.indexOf(i) === -1)    
+    else if (index === 2) output = arr2.filter(i => arr1.indexOf(i) === -1)
     else throw Error("index must be between 0 and 2")
+    console.log('output:', output)
+    return output
 }
 
 const getDistance = (place1, place2) => {
@@ -28,7 +36,7 @@ const getDistance = (place1, place2) => {
     // https://www.npmjs.com/package/geodist
     const geodist = require('geodist')     
     const distance =  (Math.floor(geodist(place1, place2, {exact: true}) * 100) / 100).toString()        
-    console.log(distance)
+    console.log('distance:', distance)
     return distance
 }
 
@@ -44,31 +52,29 @@ const getHumanTimeDiff = (time1, time2) => {
     const secMillis = 1000
 
     // calculate full day difference
-    const dayDiff = Math.floor(timeDiff / dayMillis)
-    console.log('dayDiff', dayDiff)
-    // Adjust total timeDiff by full days in milliseconds
+    const dayDiff = Math.floor(timeDiff / dayMillis)    
+    // Subtract full days (in miliseconds) from timeDiff
     timeDiff -= dayDiff * dayMillis
 
     // caclulate full hour difference
-    const hourDiff = Math.floor(timeDiff / hourMillis)
-    console.log('hourDiff', hourDiff)
-    // Adjust total timeDiff by full days in milliseconds
+    const hourDiff = Math.floor(timeDiff / hourMillis)    
+    // Subtract full hours (in miliseconds) from timeDiff
     timeDiff -= hourDiff * hourMillis
 
     // caclulate full min difference
-    const minDiff = Math.floor(timeDiff / minMillis)
-    console.log('minDiff', minDiff)
-    // Adjust total timeDiff by full days in milliseconds
+    const minDiff = Math.floor(timeDiff / minMillis)    
+    // Subtract full minutes (in miliseconds) from timeDiff
     timeDiff -= minDiff * minMillis
 
-    // caclulate full min difference
-    const secDiff = Math.floor(timeDiff / secMillis)
-    console.log('secDiff', secDiff)
-    // Adjust total timeDiff by full days in milliseconds
+    // caclulate full second difference
+    const secDiff = Math.floor(timeDiff / secMillis)    
+    // Subtract full seconds (in miliseconds) from timeDiff
     timeDiff -= secDiff * secMillis  
     
+    // TimeUnits is an array to store time unit sentence fragments.
+    // If a time unit equals 1, add singular fragment.
+    // If a time unit is greater than 1 add plural fragment.
     let timeUnits = []
-
     if (dayDiff == 1) timeUnits.push(`${dayDiff} day`)
     if (hourDiff == 1) timeUnits.push(`${hourDiff} hour`)
     if (minDiff == 1) timeUnits.push(`${minDiff} minute`)
@@ -78,16 +84,18 @@ const getHumanTimeDiff = (time1, time2) => {
     if (minDiff > 1) timeUnits.push(`${minDiff} minutes`)
     if (secDiff > 1) timeUnits.push(`${secDiff} seconds`)
 
-    console.log(timeUnits)
-
+    // If time2 is after time1, it is reported as 'x time units ago'
+    // If time2 is before time1, it is reported as 'x time units from now'
+    let humanTimeDiff
     if (timeDiffRaw > 0) {
-        return timeUnits.join(', ') + ' ago'
+        humanTimeDiff = timeUnits.join(', ') + ' ago'
     } else if (timeDiffRaw < 0) {
-        return timeUnits.join(', ') + ' from now'
+        humanTimeDiff = timeUnits.join(', ') + ' from now'
     } else {
-        return 'the datetime stamps entered are equal'
+        humanTimeDiff = 'the datetime stamps entered are equal'
     }
-    
+    console.log('humanTimeDiff:', humanTimeDiff)
+    return humanTimeDiff    
 }
 
 describe('Leaftrade Tests', () => {
@@ -114,14 +122,14 @@ describe('Leaftrade Tests', () => {
             let data1 = [1, 2, 3, 4, 5, 6, 7];
             let data2 = [2, 4, 5, 7, 8, 9, 10];
 
-            const res1 = vennDiagram(data1, data2, 2)
-            expect([8, 9, 10]).to.deep.equal(res1);
+            const right = getDiffArray(data1, data2, 2)
+            expect([8, 9, 10]).to.deep.equal(right);
 
-            const res2 = vennDiagram(data1, data2, 0)
-            expect([1, 3, 6]).to.deep.equal(res2);
+            const left = getDiffArray(data1, data2, 1)
+            expect([1, 3, 6]).to.deep.equal(left);
 
-            const res3 = vennDiagram(data1, data2, 1)
-            expect([2, 4, 5, 7, ]).to.deep.equal(res3);
+            const center = getDiffArray(data1, data2, 0)
+            expect([2, 4, 5, 7, ]).to.deep.equal(center);
         });
     });
     describe('Get Distance', () => {
