@@ -160,23 +160,24 @@ describe('Leaftrade Tests', () => {
         it('should generate a human readable time difference', () => {
             const time1 = '2016-06-05T12:00:00';
             const time2 = '2016-06-05T15:00:00';
+            const timeDiffA = getHumanTimeDiff(time1, time2)
+            expect(timeDiffA).to.equal('3 hours ago');
 
+            // Future time case
             const time3 = '2016-06-05T15:00:00';
             const time4 = '2016-06-05T12:00:00'; 
+            const timeDiffB = getHumanTimeDiff(time3, time4)
+            expect(timeDiffB).to.equal('3 hours from now');
             
+            // Equal datetime test case
             const time5 = '2019-06-05T12:00:00'; 
+            const timeDiffC = getHumanTimeDiff(time5, time5)
+            expect(timeDiffC).to.equal('the datetime stamps entered are equal');
 
+            // Complex test case
             const myBirthday = '1989-12-12T05:41:15'
             const time6 = '2019-08-01T12:00:00';
-
-            const timeDiffA = getHumanTimeDiff(time1, time2)
-            const timeDiffB = getHumanTimeDiff(time3, time4)
-            const timeDiffC = getHumanTimeDiff(time5, time5)
             const timeDiffD = getHumanTimeDiff(myBirthday, time6)
-
-            expect(timeDiffA).to.equal('3 hours ago');
-            expect(timeDiffB).to.equal('3 hours from now');
-            expect(timeDiffC).to.equal('the datetime stamps entered are equal');
             expect(timeDiffD).to.equal('10824 days, 5 hours, 18 minutes, 45 seconds ago');
         });
     });
