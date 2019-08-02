@@ -1,11 +1,11 @@
 const expect = require('chai').expect;
 
 const reverseArray = (data) => {
-    // .replace: Removes the period from the end of the sentence.
+    // .replace: Removes the periods and commas.
     // .split: Split the sentence in to an array of words so it can be sorted
     // .reverse: reverses the order of the array of words
-    const reversedArray = data.replace('.','').split(' ').reverse()
-    console.log('reversedArray:', reversedArray)
+    const reversedArray = data.replace('.','').replace(',','').split(' ').reverse()
+    console.log(reversedArray)
     return reversedArray
 }
 
@@ -13,7 +13,7 @@ const orderArray = (data) => {
     // Convert each string in the array to a float
     // Sort the array of floats and return
     const orderedArray = data.map(i => parseFloat(i)).sort()
-    console.log('orderedArray:', orderedArray)
+    console.log(orderedArray)
     return orderedArray
 }
 
@@ -27,7 +27,7 @@ const getDiffArray = (arr1, arr2, index) => {
     else if (index === 1) output = arr1.filter(i => arr2.indexOf(i) === -1)    
     else if (index === 2) output = arr2.filter(i => arr1.indexOf(i) === -1)
     else throw Error("index must be between 0 and 2")
-    console.log('output:', output)
+    console.log(output)
     return output
 }
 
@@ -36,7 +36,7 @@ const getDistance = (place1, place2) => {
     // https://www.npmjs.com/package/geodist
     const geodist = require('geodist')     
     const distance =  (Math.floor(geodist(place1, place2, {exact: true}) * 100) / 100).toString()        
-    console.log('distance:', distance)
+    console.log(distance)
     return distance
 }
 
@@ -94,7 +94,7 @@ const getHumanTimeDiff = (time1, time2) => {
     } else {
         humanTimeDiff = 'the datetime stamps entered are equal'
     }
-    console.log('humanTimeDiff:', humanTimeDiff)
+    console.log(humanTimeDiff)
     return humanTimeDiff    
 }
 
@@ -102,10 +102,18 @@ describe('Leaftrade Tests', () => {
     describe('Reverse Array', () => {
         it('should turn the below string into an array and reverse the words', () => {
             let data = "I want this job.";
-
             data = reverseArray(data)
-
             expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
+
+            // Test multi sentence with period.
+            let data1 = "I love pizza. I love pasta";
+            data1 = reverseArray(data1)
+            expect(['pasta', 'love', 'I', 'pizza', 'love', 'I']).to.deep.equal(data1);  
+            
+            // Test sentence with comma
+            let data2 = "Whisper words of wisdom, let it be";
+            data2 = reverseArray(data2)
+            expect(['be', 'it', 'let', 'wisdom', 'of', 'words', 'Whisper']).to.deep.equal(data2);              
         });
     });
     describe('Order Array', () => {
