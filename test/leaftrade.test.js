@@ -65,7 +65,24 @@ describe("Leaftrade Tests", () => {
         lon: "-88.3429465"
       };
 
-      // Code here
+      // While the formula is simple, this seems like a good place
+      // to use a third-party package do the dirty work.
+      // I've scoped the use of the geodist package to just this test.
+
+      const geodist = require("geodist");
+
+      let distance = geodist(place1, place2, { exact: true });
+
+      // Note: the actual answer is 36.91514857267145
+      // but the existing test wants a string with 2 digits of precision
+      // without rounding it seems.
+      //
+      // Normally, one uses .toFixed(2) on the float but
+      // that would round to 36.92.  Thus, while it seems
+      // inaccurate to *not* round, I here convert to string and
+      // take the first 2 digits verbatim.
+
+      distance = String(distance).replace(/^(\d+\.\d{2})\d+$/, "$1");
 
       expect(distance).to.equal("36.91");
     });
