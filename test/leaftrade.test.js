@@ -92,7 +92,11 @@ describe("Leaftrade Tests", () => {
       let time1 = "2016-06-05T12:00:00";
       let time2 = "2016-06-05T15:00:00";
 
-      // Code here
+      // Another example of using third-party packages to do heavy lifting.
+
+      const moment = require("moment");
+
+      const timeDiff = moment(time1).from(time2);
 
       expect(timeDiff).to.equal("3 hours ago");
     });
