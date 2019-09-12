@@ -17,7 +17,10 @@ describe("Leaftrade Tests", () => {
     it("should sort the below array", () => {
       let data = ["200", "450", "2.5", "1", "505.5", "2"];
 
-      // Code here
+      // Yes, sort() is in-place but it also returns the now-sorted array (of
+      // floats); handy.
+
+      data = data.map(parseFloat).sort();
 
       expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
     });
