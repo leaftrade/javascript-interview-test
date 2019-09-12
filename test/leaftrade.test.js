@@ -30,11 +30,26 @@ describe("Leaftrade Tests", () => {
       let data1 = [1, 2, 3, 4, 5, 6, 7];
       let data2 = [2, 4, 5, 7, 8, 9, 10];
 
-      // Code here
+      let set1 = new Set(data1);
+      let set2 = new Set(data2);
+
+      let data = new Set();
+
+      for (let x of data2) {
+        if (!set1.has(x)) data.add(x);
+      }
+
+      data = Array.from(data);
 
       expect([8, 9, 10]).to.deep.equal(data);
 
-      // Code here
+      data = new Set();
+
+      for (let x of data1) {
+        if (!set2.has(x)) data.add(x);
+      }
+
+      data = Array.from(data);
 
       expect([1, 3, 6]).to.deep.equal(data);
     });
