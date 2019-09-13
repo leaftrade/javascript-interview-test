@@ -28,4 +28,4 @@ or yarn
 
 or
 
-```yarn install```
+```yarn test```
