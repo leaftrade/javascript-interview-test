@@ -1,22 +1,24 @@
 const expect = require('chai').expect;
+const utilities = require('../src/utilities');
 
 describe('Leaftrade Tests', () => {
     describe('Reverse Array', () => {
-        it('should turn the below string into an array and reverse the words', () => {
+        it('should turn the below string into an array, reverse the words, and remove punctuation', () => {
             let data = "I want this job.";
 
+            result = utilities.reverseArray(data)
             // Code here
 
-            expect(['job', 'this', 'want', 'I']).to.deep.equal(data);
+            expect(['job', 'this', 'want', 'I']).to.deep.equal(result);
         });
     });
     describe('Order Array', () => {
-        it('should sort the below array', () => {
+        it('should sort the below array and return a numerical array', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
 
-            // Code here
+            result = utilities.orderArray(data)
 
-            expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(data);
+            expect([1, 2, 2.5, 200, 450, 505.5]).to.deep.equal(result);
         });
     });
     describe('Get Diff Array', () => {
@@ -24,13 +26,13 @@ describe('Leaftrade Tests', () => {
             let data1 = [1, 2, 3, 4, 5, 6, 7];
             let data2 = [2, 4, 5, 7, 8, 9, 10];
 
-            // Code here
+            result1 = utilities.diffArray(data1, data2)
 
-            expect([8, 9, 10]).to.deep.equal(data);
+            expect([8, 9, 10]).to.deep.equal(result1);
 
-            // Code here
+            result2 = utilities.diffArray(data2, data1)
 
-            expect([1, 3, 6]).to.deep.equal(data);
+            expect([1, 3, 6]).to.deep.equal(result2);
         });
     });
     describe('Get Distance', () => {
@@ -44,7 +46,7 @@ describe('Leaftrade Tests', () => {
                 lon: '-88.3429465',
             };
 
-            // Code here
+            distance = utilities.haversineDistanceMiles(place1, place2)
 
             expect(distance).to.equal('36.91');
         });
@@ -54,7 +56,7 @@ describe('Leaftrade Tests', () => {
             let time1 = '2016-06-05T12:00:00';
             let time2 = '2016-06-05T15:00:00';
 
-            // Code here
+            timeDiff = utilities.timeDeltaHuman(time1, time2)
 
             expect(timeDiff).to.equal('3 hours ago');
         });
