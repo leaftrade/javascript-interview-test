@@ -96,6 +96,7 @@ describe('Leaftrade Tests', () => {
             let data = ['200', '450', '2.5', '1', '505.5', '2'];
 
             // Code here
+            // N.B.: I did not use a helper function in this case.
             data = data.sort()
             data = data.map(parseFloat)
 
